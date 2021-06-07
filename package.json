@@ -1,10 +1,11 @@
 {
   "name": "easy-ash",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "easy-ash is a library of frequently used functions",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
+    ".": "./dist/index.js",
     "./chunks": "./dist/chunks.js",
     "./clean": "./dist/clean.js",
     "./cloneClass": "./dist/cloneClass.js",
