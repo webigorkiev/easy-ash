@@ -32,7 +32,7 @@ declare const _default: {
     difference: <T>(arr: T[], rm: any[]) => T[];
     groupBy: (arr: any[], criteria: string | number | ((v: any) => string | number)) => Record<string, any>;
     intersection: (...arrays: any[][]) => any[];
-    isBrowser: Function;
+    isBrowser: () => any;
     isClass: (target: any) => boolean;
     isEmpty: (obj: any[] | Record<string, any>) => boolean;
     isFunction: (fn: any) => boolean;

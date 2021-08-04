@@ -1,6 +1,6 @@
 {
   "name": "easy-ash",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "easy-ash is a library of frequently used functions",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
