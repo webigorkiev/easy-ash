@@ -21,6 +21,7 @@ import pullAll from "@/pullAll";
 import rand from "@/rand";
 import replace from "@/replace";
 import throttle from "@/throttle";
+import {uuid4, uuid4Valid} from "@/uuid4";
 
 export {
     chunks,
@@ -45,31 +46,7 @@ export {
     pullAll,
     rand,
     replace,
-    throttle
-}
-
-export default {
-    chunks,
-    clean,
-    cloneClass,
-    cloneDeep,
-    debounce,
-    diff,
-    difference,
-    groupBy,
-    intersection,
-    isBrowser,
-    isClass,
-    isEmpty,
-    isFunction,
-    isObject,
-    merge,
-    omit,
-    pick,
-    pickBy,
-    pull,
-    pullAll,
-    rand,
-    replace,
-    throttle
+    throttle,
+    uuid4,
+    uuid4Valid
 }
