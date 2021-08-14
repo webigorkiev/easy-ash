@@ -16,7 +16,11 @@ export default function clean<T>(
     input =  Object.assign({}, input);
     Object.keys(input).map(key => {
 
-        if(typeof input[key] === "object" && input[key] !== null) {
+        if(
+            typeof input[key] === "object"
+            && input[key] !== null
+            && !(input[key] instanceof Date)
+        ) {
             input[key] = clean(input[key], clear);
         } else if(clear.includes(input[key])) {
             delete(input[key]);

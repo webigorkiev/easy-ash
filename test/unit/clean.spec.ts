@@ -32,4 +32,11 @@ describe("@jwn-js/clean", () => {
             expect(value).to.eql({p:[1,2,3,'',null]});
         })
     });
+    describe("Date object", () => {
+        it("{date: new Date()} => {date: new Date()}", () => {
+            const date = new Date();
+            const value = clean({date});
+            expect(value).to.eql({date});
+        });
+    })
 })
