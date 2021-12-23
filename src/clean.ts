@@ -5,10 +5,10 @@
  * @param clear - Array of clean values
  * @return Purified value
  */
-export default function clean<T>(
+export default function clean(
     input: Record<string, any> | Array<any>,
     clear: Array<any> = [undefined, null, '']
-): Record<string | number, T> | Array<string | number> {
+): Record<string, any> | Array<any> {
     if(Array.isArray(input)) {
         return input.filter(v => !clear.includes(v))
     }
