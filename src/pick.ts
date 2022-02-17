@@ -4,7 +4,7 @@
  * @param  keys to pick
  * @returns object with pick keys
  */
-export default <T extends string>(o: Record<string, any>, keys: Array<T>): Record<T, any> => {
+export default <T, K extends keyof T>(o: T, keys: K[]): Pick<T, K> => {
 
     return Object.assign({}, ...keys.map(key => ({[key]: o[key]})));
 }

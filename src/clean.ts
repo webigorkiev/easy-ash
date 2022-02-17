@@ -5,12 +5,12 @@
  * @param clear - Array of clean values
  * @return Purified value
  */
-export default function clean(
-    input: Record<string, any> | Array<any>,
+export default function clean<T extends Record<string, any>|Array<any>>(
+    input: T,
     clear: Array<any> = [undefined, null, '']
-): Record<string, any> | Array<any> {
+): T {
     if(Array.isArray(input)) {
-        return input.filter(v => !clear.includes(v))
+        return input.filter(v => !clear.includes(v)) as T
     }
 
     input =  Object.assign({}, input);
