@@ -5,7 +5,7 @@ declare type criteriaHandler = (v: any) =>  string|number;
  * @param  The criteria to group by
  * @return The grouped object
  */
-export default (arr: Array<any>, criteria: criteriaHandler|string|number) : Record<string, any> => {
+export default <T = any>(arr: Array<T>, criteria: criteriaHandler|string|number) : Record<string, T> => {
     return arr.reduce((obj, item) => {
 
         const key = typeof criteria === 'function' ? criteria(item) : item[criteria];

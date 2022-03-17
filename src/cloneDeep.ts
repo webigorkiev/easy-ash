@@ -1,4 +1,4 @@
-const cloneForArray =  (a: Array<any>, fn: CallableFunction) => {
+const cloneForArray =  <T = any>(a: Array<any>, fn: CallableFunction): T[] => {
     const keys = Object.keys(a);
     const a2 = new Array(keys.length);
 
@@ -22,7 +22,7 @@ const cloneForArray =  (a: Array<any>, fn: CallableFunction) => {
  * Clone deep
  * @param o - input param
  */
-export default function clone(o: any) : any {
+export default function clone<T = any>(o: T|T[]) : T|T[]|Date {
 
     if(typeof o !== 'object' || o === null) {
         return o;
@@ -33,10 +33,10 @@ export default function clone(o: any) : any {
     }
 
     if(Array.isArray(o)) {
-        return cloneForArray(o, clone);
+        return cloneForArray<T>(o, clone);
     }
 
-    const o2 = {};
+    const o2 = {} as T|any;
 
     for(const k in o) {
 

@@ -1,11 +1,22 @@
+export interface DebouncedFunction<Args extends any[],
+    F extends (...args: Args) => any> {
+    (this: ThisParameterType<F>, ...args: Args & Parameters<F>): Promise<ReturnType<F>>;
+
+    cancel: (reason?: any) => void;
+}
+
 /**
  * Creates a debounced function that delays invoking func until after
  * wait milliseconds have elapsed since the last time the debounced
  * function was invoked
  */
-export default (func: CallableFunction, wait: number = 0, immediate: boolean = false) : CallableFunction => {
+export default <Args extends any[], F extends (...args: Args) => any>(
+    func: F, wait:
+        number = 0,
+    immediate: boolean = false
+): DebouncedFunction<Args, F> => {
 
-    let timeout: ReturnType<typeof setTimeout>| null;
+    let timeout: ReturnType<typeof setTimeout> | null;
     const debounce = function() {
 
         // eslint-disable-next-line prefer-rest-params,@typescript-eslint/no-this-alias
@@ -19,14 +30,14 @@ export default (func: CallableFunction, wait: number = 0, immediate: boolean = f
 
             if(!immediate) {
                 // @ts-ignore
-                func.apply(context, args);
+                return func.apply(context, args);
             }
         }, wait);
 
         if(immediate && !timeout) {
 
             // @ts-ignore
-            func.apply(context, args);
+            return func.apply(context, args);
         }
     };
 

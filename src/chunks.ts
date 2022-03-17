@@ -5,7 +5,7 @@
  * @param size - size of chunk
  * @returns array of array chunk
  */
-export default (arr: Array<any>, size: number) : Array<Array<any>> => {
+export default <T = any>(arr: Array<T>, size: number) : Array<Array<T>> => {
     const n = arr.length;
     const output = [];
 
