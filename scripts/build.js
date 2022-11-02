@@ -36,6 +36,7 @@ const inputClient = [
     "./src/isFunction.ts",
     "./src/isObject.ts",
     "./src/omit.ts",
+    "./src/pick.ts",
     "./src/pickBy.ts",
     "./src/pull.ts",
     "./src/pullAll.ts",
