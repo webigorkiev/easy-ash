@@ -42,6 +42,7 @@ const inputClient = [
     "./src/rand.ts",
     "./src/replace.ts",
     "./src/throttle.ts",
+    "./src/cookieParse.ts",
 ];
 
 (async() => {

@@ -22,6 +22,7 @@ import rand from "@/rand";
 import replace from "@/replace";
 import throttle from "@/throttle";
 import {uuid4, uuid4Valid} from "@/uuid4";
+import {cookieParse} from "@/cookieParse";
 
 export {
     chunks,
@@ -48,5 +49,6 @@ export {
     replace,
     throttle,
     uuid4,
-    uuid4Valid
+    uuid4Valid,
+    cookieParse
 }
