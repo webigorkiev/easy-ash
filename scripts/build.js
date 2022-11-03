@@ -44,6 +44,7 @@ const inputClient = [
     "./src/replace.ts",
     "./src/throttle.ts",
     "./src/cookieParse.ts",
+    "./src/cookieStringify.ts",
 ];
 
 (async() => {
