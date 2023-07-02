@@ -14,7 +14,7 @@ export default function clean<T extends Record<string, any>|Array<any>>(
     }
 
     input =  Object.assign({}, input);
-    Object.keys(input).map(key => {
+    Object.keys(input).map((key) => {
 
         if(
             typeof input[key] === "object"

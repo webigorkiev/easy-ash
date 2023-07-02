@@ -10,6 +10,8 @@ export default <T = any>(arr: Array<T>, size: number) : Array<Array<T>> => {
     const output = [];
 
     for(let i = 0; i < n; i += size) {
+
+        //@ts-ignore
         output.push(arr.slice(i, i + size));
     }
 

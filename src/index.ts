@@ -21,7 +21,6 @@ import pullAll from "@/pullAll";
 import rand from "@/rand";
 import replace from "@/replace";
 import throttle from "@/throttle";
-import {uuid4, uuid4Valid} from "@/uuid4";
 import {cookieParse} from "@/cookieParse";
 import {cookieStringify} from "@/cookieStringify";
 
@@ -49,8 +48,6 @@ export {
     rand,
     replace,
     throttle,
-    uuid4,
-    uuid4Valid,
     cookieParse,
     cookieStringify
 }

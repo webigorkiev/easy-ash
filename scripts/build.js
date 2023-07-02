@@ -1,24 +1,13 @@
+const esbuild = require('esbuild');
+const esbuildPluginTsc = require('esbuild-plugin-tsc');
+const { dtsPlugin } = require("esbuild-plugin-d.ts");
+
 const path = require("path");
 const fs = require("fs-extra");
 const { gzipSync } = require('zlib');
-const rollup = require("rollup");
-const esbuild  = require("rollup-plugin-esbuild");
-const {default:dts} = require("rollup-plugin-dts");
-const aliasPlugin = require("@rollup/plugin-alias");
 const chalk = require("chalk");
-const pkg = require("../package.json");
 const root = path.resolve("./dist");
-
-// eslint-disable-next-line no-console
 const log = console.log;
-const external = [
-    ...Object.keys(pkg.dependencies || {}),
-    ...Object.keys(pkg.peerDependencies || {}),
-    ...Object.keys(pkg.devDependencies || {}),
-    ...["path", "fs", "fs/promises", "crypto", "dns", "stream", "querystring"]
-];
-// console.log(root);
-
 const inputClient = [
     "./src/index.ts",
     "./src/chunks.ts",
@@ -44,7 +33,7 @@ const inputClient = [
     "./src/replace.ts",
     "./src/throttle.ts",
     "./src/cookieParse.ts",
-    "./src/cookieStringify.ts",
+    "./src/cookieStringify.ts"
 ];
 
 (async() => {
@@ -64,8 +53,8 @@ const inputClient = [
     log("Copy files to dist dir");
     await buildPlugin(inputClient, root);
     log("Build plugin client");
-    await buildTypes(inputClient, root);
-    log("Build types client");
+    // await buildTypes(inputClient, root);
+    // log("Build types client");
 
     log(chalk.green.bold("Build success"));
     await checkFileSize("./dist/index.js");
@@ -76,57 +65,20 @@ const inputClient = [
  * @returns {Promise<void>}
  */
 const buildPlugin = async(input, root) => {
-    const bundle = await rollup.rollup({
-        input,
-        external,
+    await esbuild.build({
+        entryPoints: input,
+        outdir: root,
+        bundle: true,
         plugins: [
-            aliasPlugin({
-                entries: [
-                    { find:/^@\/(.*)/, replacement: './src/$1.ts' }
-                ]
+            dtsPlugin(),
+            esbuildPluginTsc({
+                force: true
             }),
-            esbuild({
-                tsconfig: "./tsconfig.json"
-            })
-        ]
+        ],
     });
-    await bundle.write({
-        dir: root,
-        format: "cjs",
-        exports: "auto"
-    });
-    await bundle.close();
 };
 
-/**
- * Build types
- * @returns {Promise<void>}
- */
-const buildTypes = async(input, root) => {
-    const bundle = await rollup.rollup({
-        input,
-        external,
-        plugins: [
-            aliasPlugin({
-                entries: [
-                    { find:/^@\/(.*)/, replacement: './src/$1.ts' }
-                ]
-            }),
-            dts()
-        ]
-    });
-    await bundle.write({
-        dir: root,
-        format: "esm"
-    });
-    await bundle.close();
-};
-
-/**
- * Check size of file
- * @param filePath
- * @returns {Promise<void>}
- */
+// Check size of file
 const checkFileSize = async(filePath) => {
 
     if(!fs.existsSync(filePath)) {

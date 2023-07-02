@@ -1,5 +1,5 @@
 const cloneForArray =  <T = any>(a: Array<any>, fn: CallableFunction): T[] => {
-    const keys = Object.keys(a);
+    const keys = Object.keys(a) as unknown as  number[];
     const a2 = new Array(keys.length);
 
     for(let i = 0; i < keys.length; i++) {
