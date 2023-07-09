@@ -69,7 +69,7 @@ const buildPlugin = async(input, root) => {
         entryPoints: input,
         outdir: root,
         bundle: true,
-        format: "esm",
+        format: "cjs",
         plugins: [
             dtsPlugin(),
             esbuildPluginTsc({
