@@ -53,9 +53,6 @@ const inputClient = [
     log("Copy files to dist dir");
     await buildPlugin(inputClient, root);
     log("Build plugin client");
-    // await buildTypes(inputClient, root);
-    // log("Build types client");
-
     log(chalk.green.bold("Build success"));
     await checkFileSize("./dist/index.js");
 })();
@@ -66,9 +63,13 @@ const inputClient = [
  */
 const buildPlugin = async(input, root) => {
     await esbuild.build({
+        target: "node18.0",
+        platform: "node",
+        color: true,
         entryPoints: input,
         outdir: root,
         bundle: true,
+        format: "esm",
         plugins: [
             dtsPlugin(),
             esbuildPluginTsc({
