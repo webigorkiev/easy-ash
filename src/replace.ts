@@ -1,6 +1,6 @@
 import isObject from "./isObject";
-import clone from "@/cloneDeep";
-import clean from "@/clean";
+import clone from "./cloneDeep";
+import clean from "./clean";
 
 export default function replaceDeep(...objects: Array<Record<string, any|Array<any>>>):Record<string, any|Array<any>>  {
     objects = objects.map(o => Object.assign({}, o));
