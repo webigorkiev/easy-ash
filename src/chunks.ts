@@ -5,13 +5,10 @@
  * @param size - size of chunk
  * @returns array of array chunk
  */
-export default <T = any>(arr: Array<T>, size: number) : Array<Array<T>> => {
+export default <T = any>(arr: T[], size: number) : Array<Array<T>> => {
     const n = arr.length;
-    const output = [];
-
+    const output:T[][] = [];
     for(let i = 0; i < n; i += size) {
-
-        //@ts-ignore
         output.push(arr.slice(i, i + size));
     }
 
