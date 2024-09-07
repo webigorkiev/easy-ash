@@ -16,7 +16,7 @@ export default <Args extends any[], F extends (...args: Args) => any>(
     immediate: boolean = false
 ): DebouncedFunction<Args, F> => {
 
-    let timeout: ReturnType<typeof setTimeout> | null;
+    let timeout: NodeJS.Timeout | null;
     const debounce = function() {
 
         // eslint-disable-next-line prefer-rest-params,@typescript-eslint/no-this-alias
