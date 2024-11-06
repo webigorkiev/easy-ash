@@ -1,6 +1,6 @@
 export interface DebouncedFunction<Args extends IArguments[],
     F extends (...args: Args) => any> {
-    (this: ThisParameterType<F>, ...args: Args & Parameters<F>): void;
+    (this: ThisParameterType<F>, ...args: Args & Parameters<F>): Promise<ReturnType<F>>;
     cancel: (reason?: any) => void;
 }
 
@@ -12,19 +12,21 @@ export default <Args extends any[], F extends (...args: Args) => any>(
     let timeout: NodeJS.Timeout | null;
     const debounce = function() {
         const context = this, args = arguments as unknown as Args;
-        if(timeout) {
-            clearTimeout(timeout);
-        }
-        timeout = setTimeout(function() {
-            timeout = null;
-            if(!immediate) {
-                func.apply(context, args);
+        return new Promise<ReturnType<F>>((resolve) => {
+            if(timeout) {
+                clearTimeout(timeout);
             }
-        }, wait);
+            timeout = setTimeout(function() {
+                timeout = null;
+                if(!immediate) {
+                    resolve(func.apply(context, args));
+                }
+            }, wait);
 
-        if(immediate && !timeout) {
-            func.apply(context, args);
-        }
+            if(immediate && !timeout) {
+                resolve(func.apply(context, args));
+            }
+        });
     };
     debounce.cancel = () => {
         if(timeout) {

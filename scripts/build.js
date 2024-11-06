@@ -15,6 +15,7 @@ const inputClient = [
     "./src/cloneClass.ts",
     "./src/cloneDeep.ts",
     "./src/debounce.ts",
+    "./src/debounceAsync.ts",
     "./src/diff.ts",
     "./src/difference.ts",
     "./src/groupBy.ts",

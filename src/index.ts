@@ -3,6 +3,7 @@ import clean from "./clean";
 import cloneClass from "./cloneClass";
 import cloneDeep from "./cloneDeep";
 import debounce from "./debounce";
+import debounceAsync from "./debounceAsync";
 import diff from "./diff";
 import difference from "./difference";
 import groupBy from "./groupBy";
@@ -30,6 +31,7 @@ export {
     cloneClass,
     cloneDeep,
     debounce,
+    debounceAsync,
     diff,
     difference,
     groupBy,
