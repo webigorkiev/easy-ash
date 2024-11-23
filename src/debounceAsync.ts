@@ -10,21 +10,22 @@ export default <Args extends any[], F extends (...args: Args) => any>(
     immediate: boolean = false
 ): DebouncedFunction<Args, F> => {
     let timeout: NodeJS.Timeout | null;
+    let isImmediateRun = false; // Был ли запуск по immediate
     const debounce = function() {
         const context = this, args = arguments as unknown as Args;
         return new Promise<ReturnType<F>>((resolve) => {
-            if(timeout) {
-                clearTimeout(timeout);
-            }
-            timeout = setTimeout(function() {
-                timeout = null;
-                if(!immediate) {
-                    resolve(func.apply(context, args));
+            if(immediate && !isImmediateRun) {
+                isImmediateRun = true;
+                resolve(func.apply(context, args)); // Если immediate - выполнится сразу
+            } else { // Если immediate и 2-й раз - установится таймер и выполнится по таймеру
+                if(!timeout) {
+                    timeout = setTimeout(function() {
+                        timeout = null;
+                        if(!immediate) {
+                            resolve(func.apply(context, args));
+                        }
+                    }, wait);
                 }
-            }, wait);
-
-            if(immediate && !timeout) {
-                resolve(func.apply(context, args));
             }
         });
     };

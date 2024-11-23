@@ -9,21 +9,20 @@ export default <Args extends any[], F extends (...args: Args) => any>(
     wait: number = 0,
     immediate: boolean = false
 ): DebouncedFunction<Args, F> => {
-    let timeout: NodeJS.Timeout | null;
+    let timeout: NodeJS.Timeout;
+    let isImmediateRun = false; // Был ли запуск по immediate
     const debounce = function() {
         const context = this, args = arguments as unknown as Args;
-        if(timeout) {
-            clearTimeout(timeout);
-        }
-        timeout = setTimeout(function() {
-            timeout = null;
-            if(!immediate) {
-                func.apply(context, args);
-            }
-        }, wait);
-
-        if(immediate && !timeout) {
+        if(immediate && !isImmediateRun) { // Первый раз если immediate выполнится сразу
+            isImmediateRun = true;
             func.apply(context, args);
+        } else { // Во второй раз если immediate установится таймер
+            if(!timeout) { // В течение временного интервала выполнится только раз
+                timeout = setTimeout(function() {
+                    clearTimeout(timeout);
+                    func.apply(context, args);
+                }, wait);
+            }
         }
     };
     debounce.cancel = () => {
